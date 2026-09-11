@@ -1,17 +1,18 @@
 import { logger } from '../utils/logger.js';
 
 export const botConfig = {
-  // =========================
-  // BOT PRESENCE (what users see under the bot name)
-  // =========================
-  // `status` options:
-  // - "online"    = green dot
-  // - "idle"      = yellow moon
-  // - "dnd"       = red do-not-disturb
-  // - "invisible" = appears offline
-  presence: {
+ presence: {
     // Current online state shown on Discord.
     status: "online",
+    // Activity shown under the bot name.
+    activities: [
+      {
+        name: "breat.rocks",
+        state: "/customize",
+        type: 5
+      }
+    ]
+  },
 
     // Activity lines shown under the bot name.
     // `type` number mapping from Discord:
@@ -24,7 +25,7 @@ export const botConfig = {
     activities: [
       {
         name: "Custom Status", // required by Discord API, not shown in the client
-        state: "stalking",     // this is what people actually see
+        state: "Cryot",     // this is what people actually see
         type: 4,               // Custom
       },
     ],
