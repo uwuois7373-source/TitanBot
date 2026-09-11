@@ -1,4 +1,4 @@
-import { Events, MessageFlags } from 'discord.js';
+import { Events, MessageFlags, ButtonBuilder, ButtonStyle, ActionRowBuilder } from 'discord.js';
 import { logger } from '../utils/logger.js';
 import { getGuildConfig } from '../services/config/guildConfig.js';
 import {
@@ -19,6 +19,7 @@ import { resolveSlashAccessKey } from '../utils/messageAdapter.js';
 import { isCollectorManagedComponent } from '../utils/collectorComponents.js';
 import { ResponseCoordinator } from '../utils/responseCoordinator.js';
 import { enforceDefaultCommandPermissions } from '../utils/permissionGuard.js';
+import { createEmbed } from '../utils/embeds.js';
 
 const COMMAND_ERROR_SUBTYPES = {
   warn: 'warn_failed',
@@ -307,6 +308,38 @@ export default {
             }
           }
         } else if (interaction.isButton()) {
+          // معالجة زر الإبلاغ عن المشاكل (help-bug-report)
+          if (interaction.customId === 'help-bug-report') {
+            try {
+              const bugButton = new ButtonBuilder()
+                .setLabel("Report Bug")
+                .setStyle(ButtonStyle.Link)
+                .setURL("https://discord.gg/zRaZuJfPp");
+
+              const actionRow = new ActionRowBuilder().addComponents(bugButton);
+
+              const bugEmbed = createEmbed({
+                title: "🐛 Bug Report",
+                description: "If you found a bug, please report it in our official support server!",
+                color: "danger"
+              });
+
+              await interaction.reply({
+                embeds: [bugEmbed],
+                components: [actionRow],
+                flags: MessageFlags.Ephemeral
+              });
+              return;
+            } catch (error) {
+              await handleInteractionError(interaction, error, withTraceContext({
+                type: 'button',
+                customId: interaction.customId,
+                handler: 'bug_report'
+              }, interactionTraceContext));
+              return;
+            }
+          }
+
           if (interaction.customId.startsWith('shared_todo_')) {
             const parts = interaction.customId.split('_');
             const buttonType = parts.slice(0, 3).join('_');
@@ -417,7 +450,6 @@ export default {
 
           if (!modal) {
             if (!interaction.customId.includes(':')) {
-
               return;
             }
 
