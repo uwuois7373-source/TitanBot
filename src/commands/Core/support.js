@@ -3,11 +3,11 @@ import { createEmbed } from '../../utils/embeds.js';
 import { logger } from '../../utils/logger.js';
 
 import { InteractionHelper } from '../../utils/interactionHelper.js';
-const SUPPORT_SERVER_URL = "https://discord.gg/QnWNz2dKCE";
+const SUPPORT_SERVER_URL = "https://discord.gg/zRaZuJfPp";
 export default {
     data: new SlashCommandBuilder()
     .setName("support")
-    .setDescription("Get link to the support server"),
+    .setDescription("Get link to the  𝐃𝐙  𝐓𝐎𝐏  | 𝐌𝐎𝐃𝐒  5𝐊"),
 
   async execute(interaction) {
     try {
