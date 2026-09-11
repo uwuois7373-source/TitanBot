@@ -114,12 +114,12 @@ export async function createInitialHelpMenu(client) {
 
     const bugReportButton = new ButtonBuilder()
         .setCustomId(BUG_REPORT_BUTTON_ID)
-        .setLabel("Report Bug")
+        .setLabel("Cryot")
         .setStyle(ButtonStyle.Danger);
 
     const supportButton = new ButtonBuilder()
-        .setLabel("Support Server")
-        .setURL("https://discord.gg/QnWNz2dKCE")
+        .setLabel("𝐃𝐙  𝐓𝐎𝐏  | 𝐌𝐎𝐃𝐒  5𝐊")
+        .setURL("https://discord.gg/zRaZuJfPp")
         .setStyle(ButtonStyle.Link);
 
     const selectRow = createSelectMenu(
