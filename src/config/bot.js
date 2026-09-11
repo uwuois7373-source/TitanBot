@@ -7,8 +7,8 @@ export const botConfig = {
     // Activity shown under the bot name.
     activities: [
       {
-        name: "breat.rocks",
-        state: "/customize",
+        name: "Cryot",
+        state: "Sky city Rol play| s1 🎗️",
         type: 5
       }
     ]
