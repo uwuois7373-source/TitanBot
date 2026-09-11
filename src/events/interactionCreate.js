@@ -19,7 +19,6 @@ import { resolveSlashAccessKey } from '../utils/messageAdapter.js';
 import { isCollectorManagedComponent } from '../utils/collectorComponents.js';
 import { ResponseCoordinator } from '../utils/responseCoordinator.js';
 import { enforceDefaultCommandPermissions } from '../utils/permissionGuard.js';
-import { createEmbed } from '../utils/embeds.js';
 
 const COMMAND_ERROR_SUBTYPES = {
   warn: 'warn_failed',
@@ -308,7 +307,7 @@ export default {
             }
           }
         } else if (interaction.isButton()) {
-          // معالجة زر الإبلاغ عن المشاكل (help-bug-report)
+          // معالجة زر الإبلاغ عن المشاكل (help-bug-report) مباشرة
           if (interaction.customId === 'help-bug-report') {
             try {
               const bugButton = new ButtonBuilder()
@@ -318,24 +317,14 @@ export default {
 
               const actionRow = new ActionRowBuilder().addComponents(bugButton);
 
-              const bugEmbed = createEmbed({
-                title: "🐛 Bug Report",
-                description: "If you found a bug, please report it in our official support server!",
-                color: "danger"
-              });
-
               await interaction.reply({
-                embeds: [bugEmbed],
+                content: "🐛 **Bug Report**\nIf you found a bug, please report it in our official support server!",
                 components: [actionRow],
                 flags: MessageFlags.Ephemeral
               });
               return;
             } catch (error) {
-              await handleInteractionError(interaction, error, withTraceContext({
-                type: 'button',
-                customId: interaction.customId,
-                handler: 'bug_report'
-              }, interactionTraceContext));
+              logger.error('Error processing help-bug-report button:', error);
               return;
             }
           }
