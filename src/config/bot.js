@@ -1,7 +1,7 @@
 import { logger } from '../utils/logger.js';
 
 export const botConfig = {
- presence: {
+  presence: {
     // Current online state shown on Discord.
     status: "online",
     // Activity shown under the bot name.
@@ -12,23 +12,6 @@ export const botConfig = {
         type: 5
       }
     ]
-  },
-
-    // Activity lines shown under the bot name.
-    // `type` number mapping from Discord:
-    // 0 = Playing
-    // 1 = Streaming
-    // 2 = Listening
-    // 3 = Watching
-    // 4 = Custom
-    // 5 = Competing
-    activities: [
-      {
-        name: "Custom Status", // required by Discord API, not shown in the client
-        state: "Cryot",     // this is what people actually see
-        type: 4,               // Custom
-      },
-    ],
   },
 
   // =========================
@@ -311,7 +294,7 @@ export const botConfig = {
     // Automatic verification behavior.
     autoVerify: {
       // How automatic verification decides who is auto-approved:
-      // - "none"        = everyone is auto-verified immediately
+      // - "none"         = everyone is auto-verified immediately
       // - "account_age" = account must be older than set days
       // - "server_size" = auto-verify everyone only in smaller servers
       defaultCriteria: "none",
@@ -623,10 +606,8 @@ export function getDefaultApplicationQuestions() {
 }
 
 export function getColor(path, fallback = "#99AAB5") {
-  
   if (typeof path === "number") return path;
   if (typeof path === "string" && path.startsWith("#")) {
-    
     return parseInt(path.replace("#", ""), 16);
   }
   const result = path
@@ -635,7 +616,7 @@ export function getColor(path, fallback = "#99AAB5") {
       (obj, key) => (obj && obj[key] !== undefined ? obj[key] : fallback),
       botConfig.embeds.colors,
     );
-  
+
   if (typeof result === "string" && result.startsWith("#")) {
     return parseInt(result.replace("#", ""), 16);
   }
